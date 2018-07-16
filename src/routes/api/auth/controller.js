@@ -84,6 +84,7 @@ exports.check = (req, res) => {
 
     // if token is valid, it will respond with its info
     const respond = (token) => {
+        res.cookie('cookie', "sdfas134-success");
         res.json({
             success: true,
             info: token
@@ -127,6 +128,7 @@ exports.dummylist = (req, res) => {
     // if token is valid, it will respond with its info
     const respond = (token) => {
         let data = [1,2,3,45]
+        res.cookie('cookie', "sdfas134-fali");
         res.json({
             success: true,
             info: token ,
@@ -136,6 +138,7 @@ exports.dummylist = (req, res) => {
 
     // if it has failed to verify, it will return an error message
     const onError = (error) => {
+        
         res.status(403).json({
             success: false,
             message: error.message

@@ -26,7 +26,9 @@ app.use(morgan('dev'))
 
 app.all('/*', function(req, res, next) {
 
-    res.header("Access-Control-Allow-Origin","*");
+    console.log(req.headers)
+    res.header("Access-Control-Allow-Origin",req.headers["origin"]);
+    res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods','PUT, GET, POST, DELETE, OPTIONS');
     res.header("Access-Control-Allow-Headers","Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token, x-access_token, Access-Control-Allow-Origin, Authorization");
     next();
