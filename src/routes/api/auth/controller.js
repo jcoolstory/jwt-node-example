@@ -44,6 +44,7 @@ exports.login = (req, res) =>{
     }
 
     const respond = (token)=> {
+        res.cookie('jwt', token);
         res.json({
             message : 'logged in successfully',
             token
