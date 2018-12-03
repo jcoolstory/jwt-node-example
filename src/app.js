@@ -3,6 +3,7 @@
 ==========================*/
 const express = require('express')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser');
 const morgan = require('morgan')
 //const mongoose = require('mongoose')
 
@@ -23,6 +24,7 @@ app.use(bodyParser.json())
 
 // print the request log on console
 app.use(morgan('dev'))
+app.use(cookieParser());
 
 app.all('/*', function(req, res, next) {
 

@@ -22,13 +22,13 @@ exports.login = (req, res) =>{
                     jwt.sign(
                     {
                         _id:user._id,
-                        username : user.username,
+                        username : username,
                         admin : user.admin
                     },
                     secret, 
                     {
-                        expiresIn :'7d',
-                        issuer : 'velopert.com',
+                        expiresIn :'30m',
+                        issuer : 'postni.com',
                         subject : 'userInfo'
                     }, (err,token) => {
                         console.log("errrerer ", err)
@@ -44,7 +44,7 @@ exports.login = (req, res) =>{
     }
 
     const respond = (token)=> {
-        res.cookie('jwt', token);
+        res.cookie('jwt', token, {httpOnly: true});
         res.json({
             message : 'logged in successfully',
             token
@@ -64,7 +64,9 @@ exports.login = (req, res) =>{
 
 exports.check = (req, res) => {
     // read the token from header or url 
-    const token = req.headers['x-access-token'] || req.query.token
+    // const token = req.headers['authorization'] || req.query.token
+    const token = req.cookies["jwt"];
+    console.log("::::token: " ,req.headers)
     // token does not exist
     if(!token) {
         return res.status(403).json({
@@ -106,7 +108,8 @@ exports.check = (req, res) => {
 
 exports.dummylist = (req, res) => {
     // read the token from header or url 
-    const token = req.headers['authorization'] || req.query.token
+    const token = req.cookies["jwt"];
+    //const token = req.headers['authorization'] || req.query.token
     console.log("::: headers : ",req.headers , "tokken : " , token)
     // token does not exist
     if(!token) {
